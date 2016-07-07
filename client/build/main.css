@@ -43,6 +43,30 @@ div.grid-div {
   top: 5vw;
 }
 
+div.tile-content-select-div {
+  width: calc(95vw / 5);
+  max-width: calc(95vw / 5);
+  height: calc(1520vw / 50);
+  max-height: calc(1520vw / 50);
+  background-color: #aad688;
+  display: inline-block;
+  margin: 0.5vw;
+  border-radius: 3px;
+  align-content: : center;
+}
+
+p.p {
+  background-color: red;
+  text-align: center;
+  display: inline;
+  position: relative;
+  top: 2vw;
+  left: 2vw;
+  align-self: center;
+}
+
+
+
 /********************************************************/
 
 @media (max-width: 480px) {
