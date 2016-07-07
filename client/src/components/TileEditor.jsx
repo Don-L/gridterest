@@ -4,22 +4,40 @@ const TileEditor = React.createClass({
 
   getInitialState: function () {
     return { addingText: true,
-             addingImg: false };
+             addingImg: false,
+             userText: null };
   },
 
   render: function () {
-    return (
-      <div className='tile-content-select-div'>
-        <form>
-          <select onChange={this.selectChange}>
-            <option>Add text</option>
-            <option>Something else</option>
-          </select>
-          <textarea/>
-          <button>DONE</button>
-        </form>
-      </div>
-    );
+    if (this.state.addingText === true) {
+      return (
+        <div className='tile-content-select-div'>
+          <form onSubmit={this.props.onTextSubmit}>
+            <select onChange={this.selectChange}>
+              <option>Add text</option>
+              <option>Add image</option>
+            </select><br/>
+          <textarea onChange={this.props.processText}/><br/>
+            <input type='submit'/>
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <div className='tile-content-select-div'>
+          <form>
+            <select onChange={this.selectChange}>
+              <option>Add text</option>
+              <option>Add image</option>
+            </select><br/>
+          <input type='text' placeholder='Image URL'/><br/>
+            <textarea placeholder='Add your caption here'/><br/>
+            <input type='text' placeholder='(optional) Link for tile'/><br/>
+            <input type='submit'/>
+          </form>
+        </div>
+      );
+    }
   },
 
   selectChange: function () {
@@ -31,6 +49,7 @@ const TileEditor = React.createClass({
       this.setState({ addingImg: false });
     }
   }
+
 
 });
 

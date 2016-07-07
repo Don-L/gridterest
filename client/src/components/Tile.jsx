@@ -4,22 +4,34 @@ const TileEditor = require('./TileEditor.jsx');
 const Tile = React.createClass({
 
   getInitialState: function () {
-    return { editing: false };
+    return { editing: false,
+             content: null};
   },
 
   render: function () {
     if (this.state.editing === false) {
       return <div className='tileContainer'
-                  onClick={this.onClick}
+                  onClick={this.onTileClick}
              >
              </div>;
     } else {
-      return <TileEditor/>;
+      return <TileEditor onTextSubmit={this.onTextSubmit}
+                         processText={this.processText}
+             />;
     };
   },
 
-  onClick: function () {
+  onTileClick: function () {
     this.setState({ editing: true });
+  },
+
+  processText: function (e) {
+    this.setState({ content: e.target.value });
+  },
+
+  onTextSubmit: function (e) {
+    e.preventDefault();
+    console.log(e.target.value);
   }
 
 });

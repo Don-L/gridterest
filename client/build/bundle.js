@@ -19764,21 +19764,33 @@
 	
 	
 	  getInitialState: function getInitialState() {
-	    return { editing: false };
+	    return { editing: false,
+	      content: null };
 	  },
 	
 	  render: function render() {
 	    if (this.state.editing === false) {
 	      return React.createElement('div', { className: 'tileContainer',
-	        onClick: this.onClick
+	        onClick: this.onTileClick
 	      });
 	    } else {
-	      return React.createElement(TileEditor, null);
+	      return React.createElement(TileEditor, { onTextSubmit: this.onTextSubmit,
+	        processText: this.processText
+	      });
 	    };
 	  },
 	
-	  onClick: function onClick() {
+	  onTileClick: function onTileClick() {
 	    this.setState({ editing: true });
+	  },
+	
+	  processText: function processText(e) {
+	    this.setState({ content: e.target.value });
+	  },
+	
+	  onTextSubmit: function onTextSubmit(e) {
+	    e.preventDefault();
+	    console.log(e.target.value);
 	  }
 	
 	});
@@ -19827,38 +19839,70 @@
 	
 	  getInitialState: function getInitialState() {
 	    return { addingText: true,
-	      addingImg: false };
+	      addingImg: false,
+	      userText: null };
 	  },
 	
 	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'tile-content-select-div' },
-	      React.createElement(
-	        'form',
-	        null,
+	    if (this.state.addingText === true) {
+	      return React.createElement(
+	        'div',
+	        { className: 'tile-content-select-div' },
 	        React.createElement(
-	          'select',
-	          { onChange: this.selectChange },
+	          'form',
+	          { onSubmit: this.props.onTextSubmit },
 	          React.createElement(
-	            'option',
-	            null,
-	            'Add text'
+	            'select',
+	            { onChange: this.selectChange },
+	            React.createElement(
+	              'option',
+	              null,
+	              'Add text'
+	            ),
+	            React.createElement(
+	              'option',
+	              null,
+	              'Add image'
+	            )
 	          ),
-	          React.createElement(
-	            'option',
-	            null,
-	            'Something else'
-	          )
-	        ),
-	        React.createElement('textarea', null),
-	        React.createElement(
-	          'button',
-	          null,
-	          'DONE'
+	          React.createElement('br', null),
+	          React.createElement('textarea', { onChange: this.props.processText }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'submit' })
 	        )
-	      )
-	    );
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'tile-content-select-div' },
+	        React.createElement(
+	          'form',
+	          null,
+	          React.createElement(
+	            'select',
+	            { onChange: this.selectChange },
+	            React.createElement(
+	              'option',
+	              null,
+	              'Add text'
+	            ),
+	            React.createElement(
+	              'option',
+	              null,
+	              'Add image'
+	            )
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', placeholder: 'Image URL' }),
+	          React.createElement('br', null),
+	          React.createElement('textarea', { placeholder: 'Add your caption here' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', placeholder: '(optional) Link for tile' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'submit' })
+	        )
+	      );
+	    }
 	  },
 	
 	  selectChange: function selectChange() {
