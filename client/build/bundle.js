@@ -51,11 +51,7 @@
 	var Gridterest = __webpack_require__(159);
 	
 	window.onload = function () {
-	  ReactDOM.render(React.createElement(
-	    'h1',
-	    null,
-	    ' App Started '
-	  ), document.getElementById('app'));
+	  ReactDOM.render(React.createElement(Gridterest, null), document.getElementById('app'));
 	};
 
 /***/ },
@@ -19699,16 +19695,22 @@
 	
 	var React = __webpack_require__(1);
 	var Grid = __webpack_require__(160);
+	var Nav = __webpack_require__(162);
 	
 	var Gridterest = React.createClass({
 	  displayName: 'Gridterest',
 	
 	
+	  getInitialState: function getInitialState() {
+	    return { gridSize: 25 };
+	  },
+	
 	  render: function render() {
 	    return React.createElement(
-	      'h2',
+	      'div',
 	      null,
-	      'Hello I am Gridterest'
+	      React.createElement(Nav, null),
+	      React.createElement(Grid, { gridSize: this.state.gridSize })
 	    );
 	  }
 	
@@ -19764,6 +19766,30 @@
 	});
 	
 	module.exports = Tile;
+
+/***/ },
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var Nav = React.createClass({
+	  displayName: 'Nav',
+	
+	
+	  render: function render() {
+	    return React.createElement(
+	      'h3',
+	      null,
+	      'Hello I am the Nav'
+	    );
+	  }
+	
+	});
+	
+	module.exports = Nav;
 
 /***/ }
 /******/ ]);
