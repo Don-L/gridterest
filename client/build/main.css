@@ -1,24 +1,53 @@
 body {
   margin: 0;
+  background-color: #8bbd78;
 }
 
 div.tileContainer {
-  /*width: calc(94vw / 5);*/
   width: calc(95vw / 5);
   height: calc(1520vw / 50);
-  background-color: pink;
+  background-color: #98c377;
   display: inline-block;
-  margin-left: 0.5vw;
-  margin-right: 0.5vw;
-  margin-top: 0.5vw;
-  margin-bottom: 0.5vw;
+  margin: 0.5vw;
+  border-radius: 3px;
 }
 
 div.tileContainer:hover {
   /*width: calc(94vw / 5);*/
   width: calc(95vw / 5);
   height: calc(1520vw / 50);
-  background-color: red;
+  background-color: #aad688;
   display: inline-block;
   margin: 0.5vw;
+  border-radius: 3px;
+}
+
+/*div.nav-div {
+  position: fixed;
+  margin: 0.5vw;
+  height: 3vw;
+  background-color: #47894b;
+  display: block;
+}*/
+
+div.nav-div {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #47894b;
+  margin: 0.3vw;
+  border-radius: 5px;
+  z-index: 10000;
+}
+
+div.nav-div h3 {
+  color: #194747;
+  padding-left: 1vw;
+  padding-right: 0.6vw;
+}
+
+div.grid-div {
+  position: relative;
+  top: 5vw;
 }

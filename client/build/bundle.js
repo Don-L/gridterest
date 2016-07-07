@@ -19741,7 +19741,7 @@
 	
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'grid-div' },
 	      tiles
 	    );
 	  }
@@ -19784,9 +19784,13 @@
 	
 	  render: function render() {
 	    return React.createElement(
-	      'h3',
-	      null,
-	      'Hello I am the Nav'
+	      'div',
+	      { className: 'nav-div' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'gridterest'
+	      )
 	    );
 	  }
 	

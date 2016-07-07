@@ -11,7 +11,7 @@ const Grid = React.createClass({
       i++;
     }
 
-    return (<div>{ tiles }</div>);
+    return (<div className='grid-div'>{ tiles }</div>);
   }
 
 });
