@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+}
+
+div.tileContainer {
+  /*width: calc(94vw / 5);*/
+  width: calc(95vw / 5);
+  height: calc(1520vw / 50);
+  background-color: pink;
+  display: inline-block;
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+  margin-top: 0.5vw;
+  margin-bottom: 0.5vw;
+}
+
+div.tileContainer:hover {
+  /*width: calc(94vw / 5);*/
+  width: calc(95vw / 5);
+  height: calc(1520vw / 50);
+  background-color: red;
+  display: inline-block;
+  margin: 0.5vw;
+}

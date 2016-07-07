@@ -19732,10 +19732,17 @@
 	
 	
 	  render: function render() {
+	    var i = 1;
+	    var tiles = [];
+	    while (i < this.props.gridSize + 1) {
+	      tiles.push(React.createElement(Tile, null));
+	      i++;
+	    }
+	
 	    return React.createElement(
-	      'h2',
+	      'div',
 	      null,
-	      'Hello I am the Grid'
+	      tiles
 	    );
 	  }
 	
@@ -19756,11 +19763,7 @@
 	
 	
 	  render: function render() {
-	    return React.createElement(
-	      'h2',
-	      null,
-	      'Hello I am a tile'
-	    );
+	    return React.createElement('div', { className: 'tileContainer' });
 	  }
 	
 	});
