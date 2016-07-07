@@ -55,14 +55,11 @@ div.tile-content-select-div {
   align-content: : center;
 }
 
-p.p {
-  background-color: red;
-  text-align: center;
-  display: inline;
-  position: relative;
-  top: 2vw;
-  left: 2vw;
+img.one-tile-image {
+  width: 90%;
   align-self: center;
+  /*border-style: solid;
+  border-color: #47894b;*/
 }
 
 

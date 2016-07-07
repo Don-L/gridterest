@@ -19764,24 +19764,47 @@
 	
 	
 	  getInitialState: function getInitialState() {
-	    return { editing: false,
-	      content: null };
+	    return {
+	      editing: false,
+	      content: null,
+	      imgURL: null
+	    };
 	  },
 	
 	  render: function render() {
+	    // let colour = {backgroundColor: 'yellow' };
 	    if (this.state.editing === false) {
-	      return React.createElement('div', { className: 'tileContainer',
-	        onClick: this.onTileClick
-	      });
+	      return React.createElement(
+	        'div',
+	        { className: 'tileContainer',
+	          onClick: this.toggleEditing
+	        },
+	        React.createElement(
+	          'p',
+	          null,
+	          this.state.content
+	        ),
+	        React.createElement('img', {
+	          className: 'one-tile-image',
+	          src: this.state.imgURL
+	        })
+	      );
 	    } else {
 	      return React.createElement(TileEditor, { onTextSubmit: this.onTextSubmit,
-	        processText: this.processText
+	        processText: this.processText,
+	        content: this.state.content,
+	        processImgURL: this.processImgURL,
+	        onImgSubmit: this.onImgSubmit
 	      });
 	    };
 	  },
 	
-	  onTileClick: function onTileClick() {
-	    this.setState({ editing: true });
+	  toggleEditing: function toggleEditing() {
+	    if (this.state.editing === false) {
+	      this.setState({ editing: true });
+	    } else {
+	      this.setState({ editing: false });
+	    }
 	  },
 	
 	  processText: function processText(e) {
@@ -19790,7 +19813,16 @@
 	
 	  onTextSubmit: function onTextSubmit(e) {
 	    e.preventDefault();
-	    console.log(e.target.value);
+	    this.toggleEditing();
+	  },
+	
+	  processImgURL: function processImgURL(e) {
+	    this.setState({ imgURL: e.target.value });
+	  },
+	
+	  onImgSubmit: function onImgSubmit(e) {
+	    e.preventDefault();
+	    this.toggleEditing();
 	  }
 	
 	});
@@ -19866,7 +19898,9 @@
 	            )
 	          ),
 	          React.createElement('br', null),
-	          React.createElement('textarea', { onChange: this.props.processText }),
+	          React.createElement('textarea', {
+	            value: this.props.content,
+	            onChange: this.props.processText }),
 	          React.createElement('br', null),
 	          React.createElement('input', { type: 'submit' })
 	        )
@@ -19877,7 +19911,7 @@
 	        { className: 'tile-content-select-div' },
 	        React.createElement(
 	          'form',
-	          null,
+	          { onSubmit: this.props.onImgSubmit },
 	          React.createElement(
 	            'select',
 	            { onChange: this.selectChange },
@@ -19893,7 +19927,10 @@
 	            )
 	          ),
 	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', placeholder: 'Image URL' }),
+	          React.createElement('input', { type: 'text',
+	            placeholder: 'Image URL',
+	            onChange: this.props.processImgURL
+	          }),
 	          React.createElement('br', null),
 	          React.createElement('textarea', { placeholder: 'Add your caption here' }),
 	          React.createElement('br', null),
