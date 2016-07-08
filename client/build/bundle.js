@@ -19696,6 +19696,7 @@
 	var React = __webpack_require__(1);
 	var Grid = __webpack_require__(160);
 	var Nav = __webpack_require__(162);
+	var Gridfunc = __webpack_require__(164);
 	
 	var Gridterest = React.createClass({
 	  displayName: 'Gridterest',
@@ -19707,6 +19708,7 @@
 	  },
 	
 	  render: function render() {
+	    Gridfunc.hello();
 	    return React.createElement(
 	      'div',
 	      null,
@@ -19768,7 +19770,7 @@
 	  adjacent: function adjacent(position1, position2) {
 	    if (adjacentTop(position1) === position2 || adjacentBottom(position1) === position2 || adjacentLeft(position1) === position2 || adjacentRight(position1) === position2) {
 	      return true;
-	    }
+	    } else return false;
 	  },
 	
 	  singleTile: function singleTile(array) {
@@ -20095,6 +20097,100 @@
 	});
 	
 	module.exports = TileEditor;
+
+/***/ },
+/* 164 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var Gridfunc = {
+	
+	  adjacentTop: function adjacentTop(position) {
+	    if (position - 5 > 0) {
+	      return position - 5;
+	    } else return false;
+	  },
+	
+	  adjacentBottom: function adjacentBottom(position, gridSize) {
+	    if (position + 5 > 0 && position + 5 <= gridSize) {
+	      return position + 5;
+	    } else return false;
+	  },
+	
+	  adjacentLeft: function adjacentLeft(position) {
+	    if (position === 0) {
+	      return false;
+	    } else if ((position - 1) % 5 === 0) {
+	      return false;
+	    } else return position - 1;
+	  },
+	
+	  adjacentRight: function adjacentRight(position, gridSize) {
+	    if (position + 1 > gridSize) {
+	      return false;
+	    } else if (position % 5 === 0) {
+	      return false;
+	    } else return position + 1;
+	  },
+	
+	  adjacent: function adjacent(position1, position2, gridSize) {
+	    if (adjacentTop(position1) === position2 || adjacentBottom(position1, gridSize) === position2 || adjacentLeft(position1) === position2 || adjacentRight(position1, gridSize) === position2) {
+	      return true;
+	    } else return false;
+	  },
+	
+	  singleTile: function singleTile(array) {
+	    if (array.length === 1) {
+	      return true;
+	    }
+	  },
+	
+	  twoAdjacentTiles: function twoAdjacentTiles(array, gridSize) {
+	    if (array.length != 2) {
+	      return false;
+	    } else if (adjacent(array[0], array[1], gridSize)) {
+	      return true;
+	    }
+	  },
+	
+	  threeAdjacentTiles: function threeAdjacentTiles(array, gridSize) {
+	    if (array.length != 3) {
+	      return false;
+	    } else if (!twoAdjacentTiles([array[0], array[1]], gridSize)) {
+	      return false;
+	    } else if (array[1] === adjacentBottom(array[0], gridSize) && array[2] === adjacentBottom(array[1], gridSize) || array[1] === adjacentRight(array[0], gridSize) && array[2] === adjacentRight(array[1], gridSize)) {
+	      return true;
+	    } else return false;
+	  },
+	
+	  fourAdjacentTiles: function fourAdjacentTiles(array, gridSize) {
+	    if (array.length != 4) {
+	      return false;
+	    } else if (!threeAdjacentTiles([array[0], array[1], array[2]], gridSize)) {
+	      return false;
+	    } else if (array[2] === adjacentBottom(array[1], gridSize) && array[3] === adjacentBottom(array[2], gridSize) || array[2] === adjacentRight(array[1], gridSize) && array[3] === adjacentRight(array[2], gridSize)) {
+	      return true;
+	    } else return false;
+	  },
+	
+	  twoByTwoSquare: function twoByTwoSquare(array, gridSize) {
+	    if (array.length != 4) {
+	      return false;
+	    } else if (adjacent(array[0], array[1], gridSize) && adjacent(array[2], array[3], gridSize) && adjacentBottom(array[0], gridSize) === array[2]) {
+	      return true;
+	    } else return false;
+	  },
+	
+	  validSelectionGroup: function validSelectionGroup(array, gridSize) {
+	    if (singleTile(array) || twoAdjacentTiles(array, gridSize) || threeAdjacentTiles(array, gridSize) || fourAdjacentTiles(array, gridSize) || twoByTwoSquare(array, gridSize)) {
+	      return true;
+	    } else return false;
+	  }
+	
+	};
+	
+	module.exports = Gridfunc;
 
 /***/ }
 /******/ ]);

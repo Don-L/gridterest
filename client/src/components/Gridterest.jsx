@@ -1,6 +1,7 @@
 const React = require('react');
 const Grid = require('./Grid.jsx');
 const Nav = require('./Nav.jsx');
+const Gridfunc = require('./Gridfunc.js');
 
 const Gridterest = React.createClass({
 
@@ -10,6 +11,7 @@ const Gridterest = React.createClass({
   },
 
   render: function () {
+    Gridfunc.hello();
     return (<div>
             <Nav/>
             <Grid gridSize={this.state.gridSize}
@@ -72,7 +74,7 @@ const Gridterest = React.createClass({
       (adjacentRight(position1) === position2)
     ) {
       return true;
-    }
+    } else return false;
   },
 
   singleTile: function (array) {
