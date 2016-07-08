@@ -30,10 +30,10 @@ const Gridfunc = {
 
   adjacent: function (position1, position2, gridSize) {
     if (
-      (adjacentTop(position1) === position2) ||
-      (adjacentBottom(position1, gridSize) === position2) ||
-      (adjacentLeft(position1) === position2) ||
-      (adjacentRight(position1, gridSize) === position2)
+      (this.adjacentTop(position1) === position2) ||
+      (this.adjacentBottom(position1, gridSize) === position2) ||
+      (this.adjacentLeft(position1) === position2) ||
+      (this.adjacentRight(position1, gridSize) === position2)
     ) {
       return true;
     } else return false;
@@ -42,23 +42,25 @@ const Gridfunc = {
   singleTile: function (array) {
     if (array.length === 1) {
       return true;
-    }
+    } else return false;
   },
 
   twoAdjacentTiles: function (array, gridSize) {
     if (array.length != 2) {
       return false;
-    } else if (adjacent(array[0], array[1], gridSize)) {return true;}
+    } else if (this.adjacent(array[0], array[1], gridSize)) {
+      return true;
+    } else return false;
   },
 
   threeAdjacentTiles: function (array, gridSize) {
     if (array.length != 3) {
       return false;
-    } else if (!(twoAdjacentTiles([array[0], array[1]], gridSize))) {
+    } else if (!(this.twoAdjacentTiles([array[0], array[1]], gridSize))) {
       return false;
     } else if (
-      (array[1] === adjacentBottom(array[0], gridSize)) && (array[2] === adjacentBottom(array[1], gridSize)) ||
-      (array[1] === adjacentRight(array[0], gridSize)) && (array[2] === adjacentRight(array[1], gridSize))
+      (array[1] === this.adjacentBottom(array[0], gridSize)) && (array[2] === this.adjacentBottom(array[1], gridSize)) ||
+      (array[1] === this.adjacentRight(array[0], gridSize)) && (array[2] === this.adjacentRight(array[1], gridSize))
     ) {
       return true;
     } else return false;
@@ -67,11 +69,11 @@ const Gridfunc = {
   fourAdjacentTiles: function (array, gridSize) {
     if (array.length != 4) {
       return false;
-    } else if (!(threeAdjacentTiles([array[0], array[1], array[2]], gridSize))) {
+    } else if (!(this.threeAdjacentTiles([array[0], array[1], array[2]], gridSize))) {
       return false;
     } else if (
-      (array[2] === adjacentBottom(array[1], gridSize)) && (array[3] === adjacentBottom(array[2], gridSize)) ||
-      (array[2] === adjacentRight(array[1], gridSize)) && (array[3] === adjacentRight(array[2], gridSize))
+      (array[2] === this.adjacentBottom(array[1], gridSize)) && (array[3] === this.adjacentBottom(array[2], gridSize)) ||
+      (array[2] === this.adjacentRight(array[1], gridSize)) && (array[3] === this.adjacentRight(array[2], gridSize))
     ) {
       return true;
     } else return false;
@@ -81,9 +83,9 @@ const Gridfunc = {
     if (array.length != 4) {
       return false;
     } else if (
-      (adjacent(array[0], array[1], gridSize)) &&
-      (adjacent(array[2], array[3], gridSize)) &&
-      (adjacentBottom(array[0], gridSize) === array[2])
+      (this.adjacent(array[0], array[1], gridSize)) &&
+      (this.adjacent(array[2], array[3], gridSize)) &&
+      (this.adjacentBottom(array[0], gridSize) === array[2])
     ) {
       return true;
     } else return false;
@@ -91,11 +93,11 @@ const Gridfunc = {
 
   validSelectionGroup: function (array, gridSize) {
     if (
-      singleTile(array) ||
-      twoAdjacentTiles(array, gridSize) ||
-      threeAdjacentTiles(array, gridSize) ||
-      fourAdjacentTiles(array, gridSize) ||
-      twoByTwoSquare(array, gridSize)
+      this.singleTile(array) ||
+      this.twoAdjacentTiles(array, gridSize) ||
+      this.threeAdjacentTiles(array, gridSize) ||
+      this.fourAdjacentTiles(array, gridSize) ||
+      this.twoByTwoSquare(array, gridSize)
     ) {
       return true;
     } else return false;
