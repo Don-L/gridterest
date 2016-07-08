@@ -15,7 +15,19 @@ div.tileContainer {
   align-content: center;
 }
 
-div.tileContainer:hover {
+div.tileContainer-selected {
+  width: calc(95vw / 5);
+  max-width: calc(95vw / 5);
+  height: calc(1520vw / 50);
+  background-color: #aad688;
+  display: inline-block;
+  margin: 0.38vw;
+  border-radius: 3px;
+  overflow: hidden;
+  align-content: center;
+}
+
+/*div.tileContainer:hover {
   width: calc(95vw / 5);
   height: calc(1520vw / 50);
   background-color: #aad688;
@@ -23,7 +35,7 @@ div.tileContainer:hover {
   margin: 0.38vw;
   border-radius: 3px;
   overflow: hidden;
-}
+}*/
 
 div.nav-div {
   position: fixed;

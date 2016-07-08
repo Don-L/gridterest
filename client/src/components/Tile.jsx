@@ -15,18 +15,31 @@ const Tile = React.createClass({
   render: function () {
     // let colour = {backgroundColor: 'yellow' };
     if (this.state.editing === false) {
-      return <div className='tileContainer'
-                  onDoubleClick={this.toggleEditing}
-                  onClick={this.toggleSelect}
-             >
-               <p>{this.state.content}</p>
-               <div className='one-tile-image-div'>
-                 <img
-                   className='one-tile-image'
-                   src={this.state.imgURL}
-                 />
-              </div>
-             </div>;
+      if (this.state.selected === true) {
+        return <div className='tileContainer-selected'
+                    onDoubleClick={this.toggleEditing}
+                    onClick={this.toggleSelect}
+               >
+                 <p>{this.state.content}</p>
+                 <div className='one-tile-image-div'>
+                   <img
+                     className='one-tile-image'
+                     src={this.state.imgURL}
+                   />
+                </div>
+               </div>;
+      } else return <div className='tileContainer'
+                         onDoubleClick={this.toggleEditing}
+                         onClick={this.toggleSelect}
+                    >
+                      <p>{this.state.content}</p>
+                      <div className='one-tile-image-div'>
+                        <img
+                          className='one-tile-image'
+                          src={this.state.imgURL}
+                        />
+                      </div>
+                    </div>;
     } else {
       return <TileEditor onTextSubmit={this.onTextSubmit}
                          processText={this.processText}

@@ -19826,7 +19826,28 @@
 	  render: function render() {
 	    // let colour = {backgroundColor: 'yellow' };
 	    if (this.state.editing === false) {
-	      return React.createElement(
+	      if (this.state.selected === true) {
+	        return React.createElement(
+	          'div',
+	          { className: 'tileContainer-selected',
+	            onDoubleClick: this.toggleEditing,
+	            onClick: this.toggleSelect
+	          },
+	          React.createElement(
+	            'p',
+	            null,
+	            this.state.content
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'one-tile-image-div' },
+	            React.createElement('img', {
+	              className: 'one-tile-image',
+	              src: this.state.imgURL
+	            })
+	          )
+	        );
+	      } else return React.createElement(
 	        'div',
 	        { className: 'tileContainer',
 	          onDoubleClick: this.toggleEditing,
@@ -19972,41 +19993,39 @@
 	          React.createElement('input', { type: 'submit' })
 	        )
 	      );
-	    } else {
-	      return React.createElement(
-	        'div',
-	        { className: 'tile-content-select-div' },
+	    } else return React.createElement(
+	      'div',
+	      { className: 'tile-content-select-div' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.props.onImgSubmit },
 	        React.createElement(
-	          'form',
-	          { onSubmit: this.props.onImgSubmit },
+	          'select',
+	          { onChange: this.selectChange },
 	          React.createElement(
-	            'select',
-	            { onChange: this.selectChange },
-	            React.createElement(
-	              'option',
-	              null,
-	              'Add text'
-	            ),
-	            React.createElement(
-	              'option',
-	              null,
-	              'Add image'
-	            )
+	            'option',
+	            null,
+	            'Add text'
 	          ),
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            placeholder: 'Image URL',
-	            onChange: this.props.processImgURL
-	          }),
-	          React.createElement('br', null),
-	          React.createElement('textarea', { placeholder: 'Add your caption here' }),
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', placeholder: '(optional) Link for tile' }),
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'submit' })
-	        )
-	      );
-	    }
+	          React.createElement(
+	            'option',
+	            null,
+	            'Add image'
+	          )
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'text',
+	          placeholder: 'Image URL',
+	          onChange: this.props.processImgURL
+	        }),
+	        React.createElement('br', null),
+	        React.createElement('textarea', { placeholder: 'Add your caption here' }),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'text', placeholder: '(optional) Link for tile' }),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit' })
+	      )
+	    );
 	  },
 	
 	  selectChange: function selectChange() {

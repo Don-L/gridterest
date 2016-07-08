@@ -24,7 +24,7 @@ const TileEditor = React.createClass({
           </form>
         </div>
       );
-    } else {
+    } else
       return (
         <div className='tile-content-select-div'>
           <form onSubmit={this.props.onImgSubmit}>
@@ -42,7 +42,6 @@ const TileEditor = React.createClass({
           </form>
         </div>
       );
-    }
   },
 
   selectChange: function () {
