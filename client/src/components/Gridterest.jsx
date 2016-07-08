@@ -5,7 +5,7 @@ const Nav = require('./Nav.jsx');
 const Gridterest = React.createClass({
 
   getInitialState: function () {
-    return { gridSize: 25 };
+    return { gridSize: 30 };
   },
 
   render: function () {

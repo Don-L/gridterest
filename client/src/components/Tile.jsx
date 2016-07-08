@@ -17,11 +17,13 @@ const Tile = React.createClass({
       return <div className='tileContainer'
                   onClick={this.toggleEditing}
              >
-             <p>{this.state.content}</p>
-             <img
-               className='one-tile-image'
-               src={this.state.imgURL}
-             />
+               <p>{this.state.content}</p>
+               <div className='one-tile-image-div'>
+                 <img
+                   className='one-tile-image'
+                   src={this.state.imgURL}
+                 />
+              </div>
              </div>;
     } else {
       return <TileEditor onTextSubmit={this.onTextSubmit}

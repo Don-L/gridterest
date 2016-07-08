@@ -19702,7 +19702,7 @@
 	
 	
 	  getInitialState: function getInitialState() {
-	    return { gridSize: 25 };
+	    return { gridSize: 30 };
 	  },
 	
 	  render: function render() {
@@ -19784,10 +19784,14 @@
 	          null,
 	          this.state.content
 	        ),
-	        React.createElement('img', {
-	          className: 'one-tile-image',
-	          src: this.state.imgURL
-	        })
+	        React.createElement(
+	          'div',
+	          { className: 'one-tile-image-div' },
+	          React.createElement('img', {
+	            className: 'one-tile-image',
+	            src: this.state.imgURL
+	          })
+	        )
 	      );
 	    } else {
 	      return React.createElement(TileEditor, { onTextSubmit: this.onTextSubmit,
