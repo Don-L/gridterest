@@ -7,7 +7,7 @@ const Grid = React.createClass({
     let i = 1;
     let tiles = [];
     while (i < this.props.gridSize + 1) {
-      tiles.push(<Tile key={i}/>);
+      tiles.push(<Tile key={i} position={i} onClick={this.props.onClick}/>);
       i++;
     }
 

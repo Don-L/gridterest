@@ -7,7 +7,8 @@ const Tile = React.createClass({
     return {
       editing: false,
       content: null,
-      imgURL: null
+      imgURL: null,
+      selected: false
     };
   },
 
@@ -15,7 +16,8 @@ const Tile = React.createClass({
     // let colour = {backgroundColor: 'yellow' };
     if (this.state.editing === false) {
       return <div className='tileContainer'
-                  onClick={this.toggleEditing}
+                  onDoubleClick={this.toggleEditing}
+                  onClick={this.toggleSelect}
              >
                <p>{this.state.content}</p>
                <div className='one-tile-image-div'>
@@ -59,6 +61,16 @@ const Tile = React.createClass({
   onImgSubmit: function (e) {
     e.preventDefault();
     this.toggleEditing();
+  },
+
+  toggleSelect: function () {
+    if (this.state.selected === false) {
+      this.setState({ selected: true });
+    } else {
+      this.setState({ selected: false });
+    }
+
+    this.props.onClick(this.props.position);
   }
 
 });

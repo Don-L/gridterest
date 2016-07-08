@@ -19702,7 +19702,8 @@
 	
 	
 	  getInitialState: function getInitialState() {
-	    return { gridSize: 30 };
+	    return { gridSize: 30,
+	      selected: [] };
 	  },
 	
 	  render: function render() {
@@ -19710,9 +19711,25 @@
 	      'div',
 	      null,
 	      React.createElement(Nav, null),
-	      React.createElement(Grid, { gridSize: this.state.gridSize })
+	      React.createElement(Grid, { gridSize: this.state.gridSize,
+	        onClick: this.onTileClick
+	      })
 	    );
-	  }
+	  },
+	
+	  onTileClick: function onTileClick(position) {
+	    if (this.state.selected.indexOf(position) < 0) {
+	      var tiles = this.state.selected.concat([position]);
+	      this.setState({ selected: tiles });
+	    } else {
+	      var _tiles = this.state.selected.filter(function (tile) {
+	        return tile != position;
+	      });
+	      this.setState({ selected: _tiles });
+	    }
+	  },
+	
+	  adjacentOrFirstSelected: function adjacentOrFirstSelected() {}
 	
 	});
 	
@@ -19735,7 +19752,7 @@
 	    var i = 1;
 	    var tiles = [];
 	    while (i < this.props.gridSize + 1) {
-	      tiles.push(React.createElement(Tile, { key: i }));
+	      tiles.push(React.createElement(Tile, { key: i, position: i, onClick: this.props.onClick }));
 	      i++;
 	    }
 	
@@ -19767,7 +19784,8 @@
 	    return {
 	      editing: false,
 	      content: null,
-	      imgURL: null
+	      imgURL: null,
+	      selected: false
 	    };
 	  },
 	
@@ -19777,7 +19795,8 @@
 	      return React.createElement(
 	        'div',
 	        { className: 'tileContainer',
-	          onClick: this.toggleEditing
+	          onDoubleClick: this.toggleEditing,
+	          onClick: this.toggleSelect
 	        },
 	        React.createElement(
 	          'p',
@@ -19827,6 +19846,16 @@
 	  onImgSubmit: function onImgSubmit(e) {
 	    e.preventDefault();
 	    this.toggleEditing();
+	  },
+	
+	  toggleSelect: function toggleSelect() {
+	    if (this.state.selected === false) {
+	      this.setState({ selected: true });
+	    } else {
+	      this.setState({ selected: false });
+	    }
+	
+	    this.props.onClick(this.props.position);
 	  }
 	
 	});
