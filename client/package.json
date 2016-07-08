@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha /Users/user/Desktop/cx_3-4/week11/gridterest/gridterest/client/src/components/specs",
     "start": "webpack -w"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "webpack": "^1.12.12"
   },
   "dependencies": {
+    "mocha": "^2.5.3",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   },
