@@ -48,7 +48,7 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-	var Gridterest = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/Gridterest.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var Gridterest = __webpack_require__(159);
 	
 	window.onload = function () {
 	  ReactDOM.render(React.createElement(Gridterest, null), document.getElementById('app'));
@@ -19686,6 +19686,342 @@
 	
 	module.exports = __webpack_require__(3);
 
+
+/***/ },
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Grid = __webpack_require__(160);
+	var Nav = __webpack_require__(162);
+	
+	var Gridterest = React.createClass({
+	  displayName: 'Gridterest',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return { gridSize: 30,
+	      selected: [] };
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Nav, null),
+	      React.createElement(Grid, { gridSize: this.state.gridSize,
+	        onClick: this.onTileClick
+	      })
+	    );
+	  },
+	
+	  onTileClick: function onTileClick(position) {
+	    if (this.state.selected.indexOf(position) < 0) {
+	      var tiles = this.state.selected.concat([position]);
+	      this.setState({ selected: tiles });
+	    } else {
+	      var _tiles = this.state.selected.filter(function (tile) {
+	        return tile != position;
+	      });
+	      this.setState({ selected: _tiles });
+	    }
+	  },
+	
+	  // adjacentOrFirstSelected: function (position) {
+	  //   if (this.state.selected.length === 0) {
+	  //     return true;
+	  //   } else if ((this.state.selected.indexOf(position + 5) >= 0) || (this.state.selected.indexOf(position - 5) >= 0)) {
+	  //     return true;
+	  //   } else if ((this.state.selected.indexOf(position + 1) >= 0) || (this.state.selected.indexOf(position - 1) >= 0)
+	  // },
+	
+	  adjacentTop: function adjacentTop(position) {
+	    if (position - 5 > 0) {
+	      return position - 5;
+	    } else return false;
+	  },
+	
+	  adjacentBottom: function adjacentBottom(position) {
+	    if (position + 5 > 0 && position + 5 <= this.state.gridSize) {
+	      return position + 5;
+	    } else return false;
+	  },
+	
+	  adjacentLeft: function adjacentLeft(position) {
+	    if (position === 0) {
+	      return false;
+	    } else if ((position - 1) % 5 === 0) {
+	      return false;
+	    } else return position - 1;
+	  },
+	
+	  adjacentRight: function adjacentRight(position) {
+	    if (position + 1 > this.state.gridSize) {
+	      return false;
+	    } else if (position % 5 === 0) {
+	      return false;
+	    } else return position + 1;
+	  }
+	
+	});
+	
+	module.exports = Gridterest;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Tile = __webpack_require__(161);
+	
+	var Grid = React.createClass({
+	  displayName: 'Grid',
+	
+	
+	  render: function render() {
+	    var i = 1;
+	    var tiles = [];
+	    while (i < this.props.gridSize + 1) {
+	      tiles.push(React.createElement(Tile, { key: i, position: i, onClick: this.props.onClick }));
+	      i++;
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'grid-div' },
+	      tiles
+	    );
+	  }
+	
+	});
+	
+	module.exports = Grid;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var TileEditor = __webpack_require__(163);
+	
+	var Tile = React.createClass({
+	  displayName: 'Tile',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      editing: false,
+	      content: null,
+	      imgURL: null,
+	      selected: false
+	    };
+	  },
+	
+	  render: function render() {
+	    // let colour = {backgroundColor: 'yellow' };
+	    if (this.state.editing === false) {
+	      return React.createElement(
+	        'div',
+	        { className: 'tileContainer',
+	          onDoubleClick: this.toggleEditing,
+	          onClick: this.toggleSelect
+	        },
+	        React.createElement(
+	          'p',
+	          null,
+	          this.state.content
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'one-tile-image-div' },
+	          React.createElement('img', {
+	            className: 'one-tile-image',
+	            src: this.state.imgURL
+	          })
+	        )
+	      );
+	    } else {
+	      return React.createElement(TileEditor, { onTextSubmit: this.onTextSubmit,
+	        processText: this.processText,
+	        content: this.state.content,
+	        processImgURL: this.processImgURL,
+	        onImgSubmit: this.onImgSubmit
+	      });
+	    };
+	  },
+	
+	  toggleEditing: function toggleEditing() {
+	    if (this.state.editing === false) {
+	      this.setState({ editing: true });
+	    } else {
+	      this.setState({ editing: false });
+	    }
+	  },
+	
+	  processText: function processText(e) {
+	    this.setState({ content: e.target.value });
+	  },
+	
+	  onTextSubmit: function onTextSubmit(e) {
+	    e.preventDefault();
+	    this.toggleEditing();
+	  },
+	
+	  processImgURL: function processImgURL(e) {
+	    this.setState({ imgURL: e.target.value });
+	  },
+	
+	  onImgSubmit: function onImgSubmit(e) {
+	    e.preventDefault();
+	    this.toggleEditing();
+	  },
+	
+	  toggleSelect: function toggleSelect() {
+	    if (this.state.selected === false) {
+	      this.setState({ selected: true });
+	    } else {
+	      this.setState({ selected: false });
+	    }
+	
+	    this.props.onClick(this.props.position);
+	  }
+	
+	});
+	
+	module.exports = Tile;
+
+/***/ },
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var Nav = React.createClass({
+	  displayName: 'Nav',
+	
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'nav-div' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'gridterest'
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = Nav;
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var TileEditor = React.createClass({
+	  displayName: 'TileEditor',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return { addingText: true,
+	      addingImg: false,
+	      userText: null };
+	  },
+	
+	  render: function render() {
+	    if (this.state.addingText === true) {
+	      return React.createElement(
+	        'div',
+	        { className: 'tile-content-select-div' },
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.props.onTextSubmit },
+	          React.createElement(
+	            'select',
+	            { onChange: this.selectChange },
+	            React.createElement(
+	              'option',
+	              null,
+	              'Add text'
+	            ),
+	            React.createElement(
+	              'option',
+	              null,
+	              'Add image'
+	            )
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('textarea', {
+	            value: this.props.content,
+	            onChange: this.props.processText }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'submit' })
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        { className: 'tile-content-select-div' },
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.props.onImgSubmit },
+	          React.createElement(
+	            'select',
+	            { onChange: this.selectChange },
+	            React.createElement(
+	              'option',
+	              null,
+	              'Add text'
+	            ),
+	            React.createElement(
+	              'option',
+	              null,
+	              'Add image'
+	            )
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            placeholder: 'Image URL',
+	            onChange: this.props.processImgURL
+	          }),
+	          React.createElement('br', null),
+	          React.createElement('textarea', { placeholder: 'Add your caption here' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', placeholder: '(optional) Link for tile' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'submit' })
+	        )
+	      );
+	    }
+	  },
+	
+	  selectChange: function selectChange() {
+	    if (this.state.addingText === true && this.state.addingImg === false) {
+	      this.setState({ addingText: false });
+	      this.setState({ addingImg: true });
+	    } else {
+	      this.setState({ addingText: true });
+	      this.setState({ addingImg: false });
+	    }
+	  }
+	
+	});
+	
+	module.exports = TileEditor;
 
 /***/ }
 /******/ ]);

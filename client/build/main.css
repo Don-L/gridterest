@@ -5,12 +5,13 @@ body {
 
 div.tileContainer {
   width: calc(95vw / 5);
+  max-width: calc(95vw / 5);
   height: calc(1520vw / 50);
   background-color: #98c377;
   display: inline-block;
-  margin: 0.5vw;
+  margin: 0.38vw;
   border-radius: 3px;
-  overflow: scroll;
+  overflow: hidden;
   align-content: center;
 }
 
@@ -19,9 +20,9 @@ div.tileContainer:hover {
   height: calc(1520vw / 50);
   background-color: #aad688;
   display: inline-block;
-  margin: 0.5vw;
+  margin: 0.38vw;
   border-radius: 3px;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 div.nav-div {
@@ -53,15 +54,10 @@ div.tile-content-select-div {
   max-height: calc(1520vw / 50);
   background-color: #aad688;
   display: inline-block;
-  margin: 0.5vw;
+  margin: 0.38vw;
   border-radius: 3px;
   align-content: center;
-  overflow: scroll;
-}
-
-form {
-  width: 50%;
-  margin: 0;
+  overflow: hidden;
 }
 
 img.one-tile-image {

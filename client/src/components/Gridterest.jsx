@@ -38,12 +38,12 @@ const Gridterest = React.createClass({
 
   adjacentTop: function (position) {
     if (position - 5 > 0) {
-      return position -5;
+      return position - 5;
     } else return false;
   },
 
   adjacentBottom: function (position) {
-    if (position + 5 > 0) {
+    if ((position + 5 > 0) && (position + 5 <= this.state.gridSize)) {
       return position + 5;
     } else return false;
   },
@@ -51,7 +51,7 @@ const Gridterest = React.createClass({
   adjacentLeft: function (position) {
     if (position === 0) {
       return false;
-    } else if ((position - 1)%5 === 0) {
+    } else if ((position - 1) % 5 === 0) {
       return false;
     } else return position - 1;
   },
@@ -59,14 +59,10 @@ const Gridterest = React.createClass({
   adjacentRight: function (position) {
     if (position + 1 > this.state.gridSize) {
       return false;
-    } else if (position%5 === 0) {
+    } else if (position % 5 === 0) {
       return false;
     } else return position + 1;
   }
-
-  01 02 03 04 05
-  06 07 08 09 10
-  11 12
 
 });
 
